@@ -644,7 +644,7 @@ export function ServiceItemCard({
       <Flex direction="column" gap="400">
         <Flex direction="column" gap="200">
           <Flex gap="100" alignSecondary="center">
-            <TextSubheading lineClamp={1}>{heading}</TextSubheading>
+            <TextSubheading>{heading}</TextSubheading>
             {signatureCuts && (
               <DialogTrigger>
                 <IconButton

@@ -6,10 +6,13 @@ import type { FC } from "react";
 import { useEffect, useState } from "react";
 import { ServiceItemCard } from "compositions";
 import "./appointmentbooking.css";
+import { useMediaQuery } from "hooks";
 
 export const AppointmentBooking: FC = () => {
   const [services, setServices] = useState<Service[] | null>(null);
   const [loading, setLoading] = useState(true);
+  const { isMobile } = useMediaQuery();
+  const sectionPadding = isMobile ? "800" : "1600";
 
   useEffect(() => {
     let mounted = true;
@@ -33,7 +36,7 @@ export const AppointmentBooking: FC = () => {
   }, []);
 
   return (
-    <Section padding={"1600"} className="appointment-booking-section" variant="subtle">
+    <Section padding={sectionPadding} className="appointment-booking-section" variant="subtle">
       <Flex direction="column" alignSecondary="stretch" gap={"1200"}>
         <TextContentHeading
           heading="Book an appointment"
