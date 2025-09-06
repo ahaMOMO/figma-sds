@@ -593,20 +593,26 @@ export function ServiceItemCardSkeleton({}: {}) {
   return (
     <Card
       padding="600"
-      direction="vertical"
+      direction="horizontal"
       variant="stroke"
       asset={
         <Image
           aspectRatio="4-3"
           alt="Placeholder image"
-          className="product-info-card-asset"
+          className="service-item-card-asset"
         />
       }
     >
       <Flex direction="column" gap="200">
-        <TextSubheading lineClamp={1}>&nbsp;</TextSubheading>
+        <TextSubheading lineClamp={1}>Loading Products...</TextSubheading>
         <TextStrong>&nbsp;</TextStrong>
-        <Text lineClamp={2}>&nbsp;</Text>
+        <Button
+          isDisabled
+          variant="neutral"
+          className="book-now-button"
+        >
+          Book now
+        </Button>
       </Flex>
     </Card>
   );
