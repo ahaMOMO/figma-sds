@@ -27,7 +27,7 @@ export const servicesService = {
           signatureCuts: ["tapered cut", "foil razor finish"],
         },
         {
-          id: "1",
+          id: "3",
           name: "Beard Trim(no haircut)",
           price: 25.0,
           description: "A stylish beard trim without a haircut",
