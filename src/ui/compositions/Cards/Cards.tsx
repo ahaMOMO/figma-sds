@@ -1,7 +1,8 @@
 import clsx from "clsx";
 import { PricingPlan, Product } from "data";
 import { useMediaQuery } from "hooks";
-import { IconStar } from "icons";
+import { IconInfo, IconStar } from "icons";
+import { placeholder } from "images";
 import { Flex } from "layout";
 import {
   Avatar,
@@ -10,6 +11,8 @@ import {
   Button,
   ButtonGroup,
   ButtonProps,
+  DialogTrigger,
+  IconButton,
   Image,
   Text,
   TextHeading,
@@ -20,6 +23,7 @@ import {
   TextSmall,
   TextStrong,
   TextSubheading,
+  Tooltip,
 } from "primitives";
 import { ComponentPropsWithoutRef, ReactNode } from "react";
 import { AnchorOrButton, AnchorOrButtonProps } from "utils";
@@ -549,6 +553,134 @@ export function TestimonialCard({
       <AvatarBlock title={name} description={`@${username}`}>
         <Avatar size="large" src={src} initials={initials} />
       </AvatarBlock>
+    </Card>
+  );
+}
+
+export type ServiceItemCardProps = Pick<CardProps, "asset"> & {
+  /**
+   * The service id for booking
+   */
+  id: string;
+  /**
+   * The service name
+   */
+  heading: string;
+  /**
+   * The price excluding currency
+   */
+  price: number;
+  /**
+   * The duration of the service excluding units (e.g. "30 minutes")
+   */
+  duration: number;
+  /**
+   * The signature cuts offered
+   */
+  signatureCuts?: string;
+  /**
+   * The image url for the service
+   */
+  imageUrl?: string;
+};
+
+/**
+ * This is used to show a loading state for ServiceItemCard.
+ * It has no props, but accepts a size prop to determine the size of the card.
+ */
+
+export function ServiceItemCardSkeleton({}: {}) {
+  return (
+    <Card
+      padding="600"
+      direction="vertical"
+      variant="stroke"
+      asset={
+        <Image
+          aspectRatio="4-3"
+          alt="Placeholder image"
+          className="product-info-card-asset"
+        />
+      }
+    >
+      <Flex direction="column" gap="200">
+        <TextSubheading lineClamp={1}>&nbsp;</TextSubheading>
+        <TextStrong>&nbsp;</TextStrong>
+        <Text lineClamp={2}>&nbsp;</Text>
+      </Flex>
+    </Card>
+  );
+}
+
+/**
+ * A card that demonstrates service item
+ */
+export function ServiceItemCard({
+  asset,
+  heading,
+  price,
+  signatureCuts,
+  id,
+  duration,
+  ...props
+}: ServiceItemCardProps) {
+  return (
+    <Card
+      {...props}
+      padding="600"
+      direction="horizontal"
+      variant="stroke"
+      asset={
+        <Image
+          aspectRatio="1-1"
+          alt={heading + " image"}
+          className="service-item-card-asset"
+          src={props.imageUrl || placeholder}
+          width={160}
+          height={160}
+        />
+      }
+    >
+      <Flex direction="column" gap="400">
+        <Flex direction="column" gap="200">
+          <Flex gap="100" alignSecondary="center">
+            <TextSubheading lineClamp={1}>{heading}</TextSubheading>
+            {signatureCuts && (
+              <DialogTrigger>
+                <IconButton
+                  aria-label="Service info"
+                  variant="subtle"
+                  size="small"
+                >
+                  <IconInfo />
+                </IconButton>
+                <Tooltip placement="top">
+                  <TextStrong>Our signature cut</TextStrong>
+                  <TextSmall>{signatureCuts}</TextSmall>
+                </Tooltip>
+              </DialogTrigger>
+            )}
+          </Flex>
+          <TextSmall color="secondary">
+            ${price} – {duration} minutes
+          </TextSmall>
+        </Flex>
+          <Flex alignPrimary="stretch">
+            <ButtonGroup align="start">
+              <Button
+                aria-label={`Book ${heading}`}
+                onPress={() => {
+                  /* out of scope: booking flow */
+                  console.log("Book clicked", id);
+                }}
+                variant="neutral"
+                className="book-now-button"
+              >
+                Book now
+              </Button>
+            </ButtonGroup>
+          </Flex>
+      </Flex>
     </Card>
   );
 }
