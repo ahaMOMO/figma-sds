@@ -10,10 +10,20 @@ const SKIP_REST_API = process.argv.includes("--skip-rest-api");
 const WRITE_DIR = "../../src";
 
 const CONVERT_TO_REM = true;
+
+// Parse command line arguments
+function getArgValue(argName, defaultValue) {
+  const argIndex = process.argv.findIndex(arg => arg.startsWith(`--${argName}=`));
+  if (argIndex !== -1) {
+    return process.argv[argIndex].split('=')[1];
+  }
+  return defaultValue;
+}
+
 // Extension namespace for the w3c token file
-const NAMESPACE = "com.figma.sds";
+const NAMESPACE = getArgValue('namespace', 'com.figma.sds');
 // Prefix for CSS custom properties
-const TOKEN_PREFIX = "sds-";
+const TOKEN_PREFIX = getArgValue('token-prefix', 'sds-');
 
 // The data object. Each item in here represents a collection.
 // `[collection].definitions` will contain all the token data
