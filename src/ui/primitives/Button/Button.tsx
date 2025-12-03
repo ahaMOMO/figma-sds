@@ -90,14 +90,13 @@ export const ButtonDanger = React.forwardRef(function Button(
 
 type ButtonBaseProps = {
   type?: ComponentPropsWithoutRef<"button">["type"];
-  size?: "small" | "medium" | "large";
+  size?: "small" | "medium" ;
   variant?:
     | "primary"
     | "neutral"
     | "subtle"
     | "danger-primary"
     | "danger-subtle";
-  padding?: 0|2;
 } & AnchorOrButtonProps;
 
 function isAnchorProps(
